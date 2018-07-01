@@ -3,8 +3,8 @@ import shutil
 
 import numpy as np
 
-attr_dataset_path = 'list_attr_img.txt'
-attr_name_path = 'C:/Users/fy071/Desktop/SE/cloth/list_attr_cloth.txt'
+attr_dataset_path = 'D:\SE Trash\list_attr_img.txt'
+attr_name_path = 'D:\SE Trash\list_attr_cloth.txt'
 attr_npy3 = 'C:/Users/fy071/Desktop/SE/cloth/data3.npy'
 
 
@@ -14,12 +14,11 @@ def traverse_attr_dataset():
         for i, l in enumerate(f):
             if i > 1:
                 ls = l.strip().split()
-                path, attr = 'C:/Users/fy071/Desktop/SE/cloth/' + ls[0], ls[1:]
+                assert len(ls) == 1001
+                path, attr = r'C:/Users/fy071/Desktop/SE/cloth/' + ls[0], ls[1:]
                 n = np.array(attr, dtype='int')
                 d = np.where(n == 1)
                 cnt[d] = cnt[d] + 1
-                if i % 10000 == 0:
-                    print(d)
 
 
 def save_dataset_to_npy():
@@ -277,4 +276,4 @@ def rename_path_in_train_txt():
                 writer.write(new_path)
 
 
-rename_path_in_train_txt()
+traverse_attr_dataset()

@@ -11,7 +11,7 @@ from keras.preprocessing import image
 from keras_preprocessing import image
 
 K.set_image_data_format('channels_last')
-data_train = np.load('data_train.npy')
+data_train = np.load('C://Users//fy071//Desktop//SE//data_train.npy')
 data_w = np.count_nonzero(data_train, axis=0) / len(data_train)
 
 
@@ -77,26 +77,23 @@ def get_model():
 
 def train(start_training=0):
     model = get_model()
-
+    model.summary()
     # 读取模型权重
     if start_training != 0:
         model.load_weights("my_model_weights_" + str(start_training - 1) + ".h5")
 
     tensorboard = TensorBoard(log_dir="log", histogram_freq=1, write_graph=True)
 
-    ys = np.load("data_train.npy")
+    ys = np.load("C://Users//fy071//Desktop//SE//data_train.npy")
     for j in range(start_training, 6):
         for i in range(80):
             print("===" + str(i) + "=========")
-            x = to_tensor("train/list_attr_train2_" + str(i) + ".txt")
+            x = to_tensor("C://Users//fy071//Desktop//SE//train/list_attr_train2_" + str(i) + ".txt")
             y = ys[2000 * i:2000 * (i + 1)]
             y = [y[:, :4], y[:, 4:13], y[:, 13:17], y[:, 17:20], y[:, 20:23]]
             model.fit(x=x, y=y, batch_size=100, epochs=1, shuffle=True, validation_split=0.05, callbacks=[tensorboard])
 
         model.save_weights('my_model_weights_' + str(j) + '.h5')
-
-
-train(start_training=0)
 
 
 def test_img():
